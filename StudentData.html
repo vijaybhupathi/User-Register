@@ -2,11 +2,9 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     
@@ -22,6 +20,7 @@
         td{
             border: 2px solid black
         } 
+        
     </style>
 </head>
 <body>
@@ -47,7 +46,7 @@
                                 <input type="text" id="city" class="city ml-4" required autofocus><br><br>
                                 <label for="Country">Country <span class="ml-4 pl-3">: </span></label>
                                 <input type="text" id="Country" class="Country ml-4" required autofocus><br><br>
-                                <input type="submit" type="button" class="bg-primary text-center text-white pl-5 pr-5 submit"  id="save" onclick="readFormData();insertNewRecord()" style="border:none"  value="Save">
+                                <input type="submit" type="button" class="bg-primary text-center text-white pl-5 pr-5 submit"  id="save" onclick="readFormData()" style="border:none"  value="Save">
                                 <input type="submit" type="button" class="bg-primary text-center text-white pl-5 pr-5 submit" id="clear" onclick="resetForm()" style="border:none"  value="clear">
                             </form>
                         </div> 
@@ -68,7 +67,7 @@
                         <th class="pr-5 pl-5">Country</th>
                     </tr>
                 </thead>
-                <tbody cals="pt-2 pb-2" style="border:1px solid black">
+                <tbody class="pt-2 pb-2" style="border:1px solid black" id="tabledata">
                     <!--p onsubmit="readFormData()"></p>
                     <p onsubmit="insertNewRecord()"></p-->
                     <tr>
@@ -90,7 +89,7 @@
                         <td>ind</td>
                     </tr>
                     <tr>
-                        <td>1</td>
+                        <td>3</td>
                         <td>sravan</td>
                         <td>sravan@gmail.com</td>
                         <td>12</td>
@@ -102,5 +101,71 @@
             </table>
         </div>
     </div>
-   </body>
+</body>
+<script>
+        function onFormSubmit(){
+        var formData = readFormData();
+        insertNewRecord(formData);
+    }
+
+    function readFormData(result){
+
+        var tabledata = new Array();
+        var table = document.getElementById("employeeList");
+
+        for(var i = 0; i < result.length; i++){
+            tableData[i] = new Array('studentId: ' + result[i].studentId + '\n Name: ' + result[i].Name + '\n Email: ' + result[i].Email + '\n class: ' + result[i].class + '\n Year: ' + result[i].Year + '\n city: ' + result[i].city + '\n Country: ' + result[i].Country)
+        }
+
+        for(var i = 0; i < tableData.length; i++){
+            var newRow = table.insertRow(table.langth);
+            for(var j = 0; j < tableData[i].length; j++){
+                var cell = newRow.insertCell(j);
+
+                cell.innerHTML = tableData[i][j];
+            }
+        }
+        
+        // formData["studentId"] = document.getElementById("studentId").value;
+        // formData["Name"] = document.getElementById("Name").value;
+        // formData["Email"] = document.getElementById("Email").value;
+        // formData["class"] = document.getElementById("class").value;
+        // formData["Year"] = document.getElementById("Year").value;
+        // formData["city"] = document.getElementById("city").value;
+        // formData["Country"] = document.getElementById("Country").value;
+        // return formData.push[form];
+    }
+
+    function insertNewRecord(data) {
+        var table =document.getElementById("employeeList").getElementsByTagName('tbody')[0];
+        var newRow = table.insertRow(table.length);
+        cell1 = newRow.insertCell(0)
+        cell1.innerHTML = data.studentId;
+        cell2 = newRow.insertCell(1)
+        cell2.innerHTML = data.Name;
+        cell3 = newRow.insertCell(2)
+        cell3.innerHTML = data.Email;
+        cell4 = newRow.insertCell(3)
+        cell4.innerHTML = data.class;
+        cell5 = newRow.insertCell(4)
+        cell5.innerHTML = data.Year;
+        cell6 = newRow.insertCell(5)
+        cell6.innerHTML = data.city;
+        cell7 = newRow.insertCell(6)
+        cell7.innerHTML = data.Country;
+        cell8 = newRow.insertCell(4)
+        cell8.innerHTML = '<a href="#" onClick="onEdit(this)">Edit</a><a href="#">Remove</a>';
+    }
+
+    function resetForm() {
+        document.getElementById("studentId").value = "";
+        document.getElementById("Name").value = "";
+        document.getElementById("Email").value = "";
+        document.getElementById("class").value = "";
+        document.getElementById("Year").value = "";
+        document.getElementById("city").value = "";
+        document.getElementById("Country").value = "";
+    }
+</script>
+    
 </html>
